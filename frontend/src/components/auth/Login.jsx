@@ -1,12 +1,17 @@
 /* ─── Login Page ─── */
 import { useState } from "react";
 import { motion } from "motion/react";
+import axios from "axios"
+import {useNavigate} from 'react-router-dom'
 import { pageVariants, containerVariants, itemVariants, InputField, SuccessState, GoogleButton } from "../../pages/auth/Auth";
 
 const LoginPage = ({ onSwitch, direction }) => {
   const [form, setForm] = useState({ email: "", password: "" });
   const [done, setDone] = useState(false);
+  const [isInValidEmailPassword, setIsInValidEmailPassword] = useState(false)
   const set = (f) => (e) => setForm((p) => ({ ...p, [f]: e.target.value }));
+
+  const navigate = useNavigate();
 
   if (done) {
     return (
@@ -15,11 +20,25 @@ const LoginPage = ({ onSwitch, direction }) => {
         title="Welcome back!"
         subtitle="You're now signed in."
         action={{
-          label: "← Back to login",
-          onClick: () => { setDone(false); setForm({ email: "", password: "" }); },
+          label: "← Go to Home",
+          onClick: () => { setDone(false); navigate("/") },
         }}
       />
     );
+  }
+
+  const handleSubmit = async(e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post("http://localhost:3000/api/auth/login", form)
+      if (response.data.message === "invalid email or password") setIsInValidEmailPassword(true)
+      if (response.data.message === "Logged in successfully") setDone(true)
+
+    } catch (error) {
+      console.log("error in logging in:", error)
+    }
+
   }
 
   return (
@@ -40,35 +59,43 @@ const LoginPage = ({ onSwitch, direction }) => {
           </p>
         </motion.div>
 
-        {/* Fields */}
-        <div className="flex flex-col gap-3.5">
-          <InputField label="Email" placeholder="jane@example.com" value={form.email} onChange={set("email")} type="email" autoFocus />
-          <InputField label="Password" placeholder="Your password" value={form.password} onChange={set("password")} type="password" />
-        </div>
+        {/* Form  */}
+        <form action="" onSubmit={handleSubmit}>
+          {/* Fields */}
+          <div className="flex flex-col gap-3.5">
+            <InputField label="Email" placeholder="jane@example.com" value={form.email} onChange={set("email")} type="email" autoFocus />
+            <InputField label="Password" placeholder="Your password" value={form.password} onChange={set("password")} type="password" />
+            {
+              isInValidEmailPassword &&
+              <p className="text-red-700 text-sm pl-2 mt-1">User already exists</p>
+            }
+          </div>
 
-        {/* Forgot */}
-        <motion.div variants={itemVariants} className="flex justify-end mt-2">
-          <motion.button
-            whileHover={{ scale: 1.03 }}
-            className="bg-transparent border-none text-[0.78rem] text-[var(--color-text-secondary)] cursor-pointer hover:text-[var(--color-primary)] transition-colors duration-200"
-          >
-            Forgot password?
-          </motion.button>
-        </motion.div>
+          {/* Forgot */}
+          <motion.div variants={itemVariants} className="flex justify-end mt-2">
+            <motion.button
+              whileHover={{ scale: 1.03 }}
+              className="bg-transparent border-none text-[0.78rem] text-[var(--color-text-secondary)] cursor-pointer hover:text-[var(--color-primary)] transition-colors duration-200"
+            >
+              Forgot password?
+            </motion.button>
+          </motion.div>
 
-        {/* Submit */}
-        <motion.div variants={itemVariants} className="mt-4">
-          <motion.button
-            whileHover={{ scale: 1.015 }}
-            whileTap={{ scale: 0.975 }}
-            onClick={() => { if (form.email && form.password) setDone(true); }}
-            className="w-full rounded-[10px] py-3 text-sm font-semibold tracking-wide cursor-pointer border-none
+          {/* Submit */}
+          <motion.div variants={itemVariants} className="mt-4">
+            <motion.button
+              whileHover={{ scale: 1.015 }}
+              whileTap={{ scale: 0.975 }}
+              className="w-full rounded-[10px] py-3 text-sm font-semibold tracking-wide cursor-pointer border-none
                        bg-[var(--color-primary)] text-[var(--color-primary-foreground)]
                        transition-all duration-200 hover:shadow-[0_6px_24px_var(--color-primary-glow)]"
-          >
-            Sign In
-          </motion.button>
-        </motion.div>
+            >
+              Sign In
+            </motion.button>
+          </motion.div>
+
+        </form>
+
 
         {/* Divider */}
         <motion.div variants={itemVariants} className="flex items-center gap-3 my-4">

@@ -23,7 +23,7 @@ const RegisterPage = ({ onSwitch, direction }) => {
         subtitle="Your account has been created."
         action={{
           label: "Go to Home →",
-          onClick: () => { navigate('/') },
+          onClick: () => { setDone(false); navigate('/') },
         }}
       />
     );

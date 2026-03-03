@@ -14,11 +14,13 @@ async function userRegister(req, res) {
             return res.status(200).json({ message: "User already exists" });
         }
 
+        const hashedPassword = await bcrypt.hash(password, 10)
+
         const user = await userModel.create({
             name,
             username,
             email,
-            password
+            password: hashedPassword
         })
 
         res.status(200).json({
@@ -35,7 +37,35 @@ async function userRegister(req, res) {
     }
 }
 
+async function userLogin(req, res) {
+    const { email, password } = req.body
+
+    const user = await userModel.findOne({ email })
+
+    if (!user) {
+        return res.status(200).json({ message: "invalid email or password" })
+    }
+
+    const isPasswordCorrect = await bcrypt.compare(password, user.password)
+
+    if (!isPasswordCorrect) {
+        return res.status(200).json({
+            message: "invalid email or password"
+        })
+    }
+
+    res.status(200).json({
+        message: "Logged in successfully",
+        user: {
+            _id: user._id,
+            username: user.username,
+            email: user.email,
+        }
+    })
+}
+
 module.exports = {
-    userRegister
+    userRegister,
+    userLogin
 }
 
