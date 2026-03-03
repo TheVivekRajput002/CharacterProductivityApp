@@ -26,7 +26,7 @@ const RegisterPage = ({ onSwitch, direction }) => {
   }
 
   const handleSubmit = () => {
-    
+
   }
 
   return (
@@ -60,7 +60,7 @@ const RegisterPage = ({ onSwitch, direction }) => {
           <motion.button
             whileHover={{ scale: 1.015 }}
             whileTap={{ scale: 0.975 }}
-            onClick={() => { if (form.name && form.username && form.email && form.password) setDone(true); handleSubmit();}}
+            onClick={() => { if (form.name && form.username && form.email && form.password) setDone(true); handleSubmit(); }}
             className="w-full rounded-[10px] py-3 text-sm font-semibold tracking-wide cursor-pointer border-none
                        bg-[var(--color-primary)] text-[var(--color-primary-foreground)]
                        transition-all duration-200 hover:shadow-[0_6px_24px_var(--color-primary-glow)]"
