@@ -33,7 +33,7 @@ const LoginPage = ({ onSwitch, direction }) => {
             Sign In
           </p>
           <h1 className="font-serif text-[2rem] italic leading-tight text-[var(--color-text-primary)]">
-            Welcome<br />back
+            Welcome back
           </h1>
           <p className="text-[0.82rem] text-[var(--color-text-secondary)] mt-1.5">
             Enter your credentials to continue.
