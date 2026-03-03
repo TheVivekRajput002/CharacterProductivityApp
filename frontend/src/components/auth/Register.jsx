@@ -12,7 +12,7 @@ const RegisterPage = ({ onSwitch, direction }) => {
   const navigate = useNavigate();
   const [form, setForm] = useState({ name: "", username: "", email: "", password: "" });
   const [done, setDone] = useState(false);
-  const [isUserAlreadyExists, SetisUserAlreadyExists] = useState(false)
+  const [isUserAlreadyExists, setisUserAlreadyExists] = useState(false)
   const set = (f) => (e) => setForm((p) => ({ ...p, [f]: e.target.value }));
 
   if (done) {
@@ -35,12 +35,12 @@ const RegisterPage = ({ onSwitch, direction }) => {
     try {
       const response = await axios.post("http://localhost:3000/api/auth/register", form);
       console.log(response.data);
-      setDone(true);
+      if (response.data.message === "User created successfully") setDone(true);
+      if (response.data.message === "User already exists") setisUserAlreadyExists(true);
 
     } catch (error) {
       const msg = error.response?.data?.message || "Something went wrong";
       console.log("Registration error:", msg);
-      if (msg === "User already exists") SetisUserAlreadyExists(true);
     }
 
   }

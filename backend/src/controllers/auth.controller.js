@@ -11,7 +11,7 @@ async function userRegister(req, res) {
 
         if (isUserAlreadyExists) {
             console.log("user already exists");
-            return res.status(400).json({ message: "User already exists" });
+            return res.status(200).json({ message: "User already exists" });
         }
 
         const user = await userModel.create({
@@ -22,7 +22,7 @@ async function userRegister(req, res) {
         })
 
         res.status(200).json({
-            message: "user created successfully",
+            message: "User created successfully",
             user: {
                 _id: user._id,
                 username: user.username,
