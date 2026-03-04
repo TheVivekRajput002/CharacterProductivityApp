@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { motion } from "motion/react";
 import axios from "axios"
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { pageVariants, containerVariants, itemVariants, InputField, SuccessState, GoogleButton } from "../../pages/auth/Auth";
 
 const LoginPage = ({ onSwitch, direction }) => {
@@ -27,11 +27,11 @@ const LoginPage = ({ onSwitch, direction }) => {
     );
   }
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:3000/api/auth/login", form)
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/login`, form, { withCredentials: true })
       if (response.data.message === "invalid email or password") setIsInValidEmailPassword(true)
       if (response.data.message === "Logged in successfully") setDone(true)
 
@@ -67,7 +67,7 @@ const LoginPage = ({ onSwitch, direction }) => {
             <InputField label="Password" placeholder="Your password" value={form.password} onChange={set("password")} type="password" />
             {
               isInValidEmailPassword &&
-              <p className="text-red-700 text-sm pl-2 mt-1">User already exists</p>
+              <p className="text-red-500 text-sm pl-2 -mt-2">Invalid email or password</p>
             }
           </div>
 

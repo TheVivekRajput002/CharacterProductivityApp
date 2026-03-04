@@ -33,7 +33,7 @@ const RegisterPage = ({ onSwitch, direction }) => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:3000/api/auth/register", form);
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/register`, form, { withCredentials: true });
       console.log(response.data);
       if (response.data.message === "User created successfully") setDone(true);
       if (response.data.message === "User already exists") setisUserAlreadyExists(true);
