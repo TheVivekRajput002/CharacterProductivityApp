@@ -1,0 +1,38 @@
+.sprite-angry {
+  display: inline-block;
+  background: url('spritesheet.png') no-repeat;
+  width: 480px;
+  height: 480px;
+}
+
+.sprite-angry.frame-0 {
+  background-position: -0px -0px;
+}
+
+.sprite-angry.frame-1 {
+  background-position: -480px -0px;
+}
+
+.sprite-angry.frame-2 {
+  background-position: -960px -0px;
+}
+
+.sprite-angry.frame-3 {
+  background-position: -1440px -0px;
+}
+
+.sprite-angry.frame-4 {
+  background-position: -0px -480px;
+}
+
+.sprite-angry.frame-5 {
+  background-position: -480px -480px;
+}
+
+.sprite-angry.frame-6 {
+  background-position: -960px -480px;
+}
+
+.sprite-angry.frame-7 {
+  background-position: -1440px -480px;
+}

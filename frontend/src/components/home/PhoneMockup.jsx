@@ -1,4 +1,6 @@
 import { motion } from "motion/react";
+import PixelCharacter from "../character/PixelCharacter";
+import SpriteCharacter from "../character/SpriteCharacter";
 
 /* ── helpers ──────────────────────────────────────── */
 const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -152,6 +154,15 @@ export default function PhoneMockup({ userName = "Chester" }) {
                                 background: "linear-gradient(to top, var(--color-bg), transparent)",
                             }}
                         />
+
+                        {/* pixel character floating over hero */}
+                        <div className="absolute inset-0 flex items-end justify-center z-10"
+                            style={{ pointerEvents: "none", paddingBottom: "8px" }}>
+                            <div style={{ pointerEvents: "auto", transform: "scale(1)" }}>
+                                {/* <PixelCharacter showControls={false} /> */}
+                                <SpriteCharacter showTrigger={true} displaySize={80} />
+                            </div>
+                        </div>
                     </div>
 
                     {/* greeting */}

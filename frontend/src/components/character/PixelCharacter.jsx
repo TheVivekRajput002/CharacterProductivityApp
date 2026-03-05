@@ -323,7 +323,7 @@ export default function PixelCharacter({
       setTick(frame);
 
       // BOUNCE: sine wave, ~1.5 bounces/sec at 60fps
-      const raw = Math.sin((frame / 60) * Math.PI * 3);
+      const raw = Math.sin((frame / 1) * Math.PI * 3);
       // only go UP (negative y = up), stay grounded at 0
       const up  = raw > 0 ? raw : 0;
       setBounceY(-Math.round(up * PX * 2));   // max 8px up
