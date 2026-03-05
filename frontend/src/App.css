@@ -1,83 +1,55 @@
 :root {
   /* Backgrounds */
-  --color-bg: light-dark(
-    hsl(210 20% 98%),
-    hsl(222 47% 11%)
-  );
+  --color-bg: light-dark(hsl(210 20% 98%),
+      hsl(222 47% 11%));
 
-  --color-surface: light-dark(
-    hsl(0 0% 100%),
-    hsl(217 33% 17%)
-  );
+  --color-surface: light-dark(hsl(0 0% 100%),
+      hsl(217 33% 17%));
 
   /* Subtle UI surfaces (cards, hover areas) */
-  --color-lightgray: light-dark(
-    hsl(214 32% 91%),
-    hsl(217 19% 27%)
-  );
+  --color-lightgray: light-dark(hsl(214 32% 91%),
+      hsl(217 19% 27%));
 
-  --color-projectcardbg: light-dark(
-    hsl(220 20% 96% / 0.6),
-    hsl(220 18% 12%)
-  );
+  --color-projectcardbg: light-dark(hsl(220 20% 96% / 0.6),
+      hsl(220 18% 12%));
 
   /* Text */
-  --color-text-primary: light-dark(
-    hsl(222 47% 11%),
-    hsl(210 40% 98%)
-  );
+  --color-text-primary: light-dark(hsl(222 47% 11%),
+      hsl(210 40% 98%));
 
-  --color-text-secondary: light-dark(
-    hsl(215 16% 47%),
-    hsl(215 20% 65%)
-  );
+  --color-text-secondary: light-dark(hsl(215 16% 47%),
+      hsl(215 20% 65%));
 
   /* Accent (Blue) */
-  --color-primary: light-dark(
-    hsl(221 83% 53%),
-    hsl(217 91% 60%)
-  );
+  --color-primary: light-dark(hsl(221 83% 53%),
+      hsl(217 91% 60%));
 
-  --color-primary-foreground: light-dark(
-    hsl(0 0% 100%),
-    hsl(222 47% 11%)
-  );
+  --color-primary-foreground: light-dark(hsl(0 0% 100%),
+      hsl(222 47% 11%));
 
   /* Borders */
-  --color-border: light-dark(
-    hsl(214 32% 91%),
-    hsl(217 19% 27%)
-  );
+  --color-border: light-dark(hsl(214 32% 91%),
+      hsl(217 19% 27%));
 
 
   /* Focus ring glow on inputs & button hover shadow */
---color-primary-glow: light-dark(
-  hsl(221 83% 53% / 0.18),
-  hsl(217 91% 60% / 0.22)
-);
+  --color-primary-glow: light-dark(hsl(221 83% 53% / 0.18),
+      hsl(217 91% 60% / 0.22));
 
-/* Success icon background fill */
---color-primary-subtle: light-dark(
-  hsl(221 83% 53% / 0.10),
-  hsl(217 91% 60% / 0.12)
-);
+  /* Success icon background fill */
+  --color-primary-subtle: light-dark(hsl(221 83% 53% / 0.10),
+      hsl(217 91% 60% / 0.12));
 
-/* Success icon border */
---color-primary-muted: light-dark(
-  hsl(221 83% 53% / 0.25),
-  hsl(217 91% 60% / 0.30)
-);
+  /* Success icon border */
+  --color-primary-muted: light-dark(hsl(221 83% 53% / 0.25),
+      hsl(217 91% 60% / 0.30));
 
-/* Card drop shadow */
---color-shadow: light-dark(
-  hsl(222 47% 11% / 0.10),
-  hsl(222 47% 11% / 0.40)
-);
+  /* Card drop shadow */
+  --color-shadow: light-dark(hsl(222 47% 11% / 0.10),
+      hsl(222 47% 11% / 0.40));
 
-/* Subtle shadow (tab pill, inner) */
---color-shadow-sm: light-dark(
-  hsl(222 47% 11% / 0.05),
-  hsl(222 47% 11% / 0.25)
-);
+  /* Subtle shadow (tab pill, inner) */
+  --color-shadow-sm: light-dark(hsl(222 47% 11% / 0.05),
+      hsl(222 47% 11% / 0.25));
 
 }

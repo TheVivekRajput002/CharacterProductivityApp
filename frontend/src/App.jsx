@@ -20,6 +20,11 @@ function App() {
             <Home />
           </ProtectedRoute>
         } />
+        <Route path="/home" element={
+          <ProtectedRoute>
+            <Home />
+          </ProtectedRoute>
+        } />
       </Routes>
     </Router>
   )

@@ -1,9 +1,15 @@
-import React from 'react'
+import PhoneMockup from "../components/home/PhoneMockup";
 
-function Home() {
+export default function Home() {
   return (
-    <div>Home</div>
-  )
+    <div
+      className="min-h-screen flex items-center justify-start pl-20 py-4"
+      style={{
+        background:
+          "linear-gradient(135deg, var(--color-bg), var(--color-lightgray))",
+      }}
+    >
+      <PhoneMockup userName="Chester" />
+    </div>
+  );
 }
-
-export default Home
