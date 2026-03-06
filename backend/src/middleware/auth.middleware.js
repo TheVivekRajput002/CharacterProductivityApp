@@ -5,7 +5,7 @@ async function authUserMiddleware(req, res, next) {
     const token = req.cookies.token
 
     if (!token) {
-        return res.json(200).json({
+        return res.status(401).json({
             message: "you are not logged in!!",
             isLoggedIn: false
         })
@@ -19,7 +19,7 @@ async function authUserMiddleware(req, res, next) {
         next()
 
     } catch (error) {
-        return res.status(200).json({
+        return res.status(401).json({
             message: "invalid token!!",
             isloggedIn: false
         })

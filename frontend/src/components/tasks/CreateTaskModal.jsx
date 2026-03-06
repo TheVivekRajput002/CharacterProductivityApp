@@ -44,7 +44,7 @@ export default function CreateTaskModal({ isOpen, onClose }) {
               </div>
 
               {/* Form */}
-              <form className="flex flex-col gap-4" onSubmit={(e) => { e.preventDefault(); onClose(); }}>
+              <form className="flex flex-col gap-4" onSubmit={(e) => { e.preventDefault(); onClose(); handleSubmit()}}>
                 {/* Title */}
                 <div>
                   <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wider" style={{ color: "var(--color-text-secondary)" }}>
