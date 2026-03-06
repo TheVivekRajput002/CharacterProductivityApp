@@ -19,6 +19,7 @@ export default function SpriteCharacter({
     fps = 8,
     displaySize = 80,
     showTrigger = true,
+    emotionTrigger = null,
 }) {
     const [emotion, setEmotion] = useState("happy");
     const [currentFrame, setCurrentFrame] = useState(0);
@@ -70,6 +71,13 @@ export default function SpriteCharacter({
     useEffect(() => () => {
         if (rafRef.current) cancelAnimationFrame(rafRef.current);
     }, []);
+
+    // watch for external emotion triggers
+    useEffect(() => {
+        if (emotionTrigger && emotionTrigger.t) {
+            play(emotionTrigger.emotion);
+        }
+    }, [emotionTrigger, play]);
 
     const scale = displaySize / emo.size;
 

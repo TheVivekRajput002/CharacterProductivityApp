@@ -93,10 +93,17 @@ function HabitCard({ habit, onToggleDot, cardIndex }) {
 }
 
 /* ── Habit List ───────────────────────────────────────── */
-export default function HabitList() {
+export default function HabitList({ onHabitToggle }) {
   const [habits, setHabits] = useState(initialHabits);
 
   const handleToggleDot = (habitId, dotIndex) => {
+    const habit = habits.find((h) => h.id === habitId);
+    if (!habit) return;
+    
+    // Compute the new dot value before updating state
+    const isNowFilled = !habit.dots[dotIndex];
+    if (onHabitToggle) onHabitToggle(isNowFilled);
+
     setHabits((prev) =>
       prev.map((h) => {
         if (h.id !== habitId) return h;

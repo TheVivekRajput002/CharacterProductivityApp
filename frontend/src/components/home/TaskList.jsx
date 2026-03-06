@@ -159,7 +159,7 @@ function TaskRow({ task, index, onToggle }) {
 }
 
 /* ── Task List Card ───────────────────────────────────── */
-export default function TaskList() {
+export default function TaskList({ hideHeader = false }) {
   const [tasks, setTasks] = useState(initialTasks);
 
   const handleToggle = (id) => {
@@ -185,12 +185,14 @@ export default function TaskList() {
       }}
     >
       {/* Header */}
-      <h2
-        className="mb-3 text-sm font-bold tracking-tight"
-        style={{ color: "var(--color-text-primary)" }}
-      >
-        Task List
-      </h2>
+      {!hideHeader && (
+        <h2
+          className="mb-3 text-sm font-bold tracking-tight"
+          style={{ color: "var(--color-text-primary)" }}
+        >
+          Task List
+        </h2>
+      )}
 
       {/* Table */}
       <div className="overflow-x-auto">

@@ -89,7 +89,7 @@ function StatBar({ label, percentage, delay = 0 }) {
 }
 
 /* ── main component ──────────────────────────────── */
-export default function PhoneMockup({ userName = "Chester" }) {
+export default function PhoneMockup({ userName = "Chester", animTrigger }) {
     return (
         <motion.div
             initial={{ opacity: 0, scale: 0.92 }}
@@ -147,9 +147,9 @@ export default function PhoneMockup({ userName = "Chester" }) {
                         <div className="absolute inset-0 flex items-end justify-center z-10"
                             style={{ pointerEvents: "none", paddingBottom: "8px" }}>
                             <div style={{ pointerEvents: "auto", transform: "scale(1)" }}>
-                                {/* <PixelCharacter showControls={true} /> */}
-                                <SpriteCharacter showTrigger={true} displaySize={80} />
-                                {/* <PixelGirl /> */}
+                                {/* <PixelCharacter showControls={false} emotionTrigger={animTrigger} /> */}
+                                {/* <SpriteCharacter showTrigger={false} displaySize={80} emotionTrigger={animTrigger} /> */}
+                                <PixelGirl emotionTrigger={animTrigger} />
                             </div>
                         </div>
                     </div>

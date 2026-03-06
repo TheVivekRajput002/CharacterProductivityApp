@@ -475,7 +475,7 @@ function drawBlended(ctx, t) {
     ctx.putImageData(imageData, 0, 0);
 }
 
-export default function PixelGirl({ scale = 0.25 }) {
+export default function PixelGirl({ scale = 0.25, emotionTrigger = null }) {
     const canvasRef = useRef(null);
     const animRef = useRef(null);
     const tRef = useRef(0); // 0=neutral, 1=smile
@@ -488,9 +488,8 @@ export default function PixelGirl({ scale = 0.25 }) {
         }
     }, []);
 
-    const toggleSmile = useCallback(() => {
+    const triggerAnimation = useCallback((target) => {
         if (animating) return;
-        const target = smiling ? 0 : 1;
         setAnimating(true);
         const start = tRef.current;
         const startTime = performance.now();
@@ -519,7 +518,27 @@ export default function PixelGirl({ scale = 0.25 }) {
         }
 
         animRef.current = requestAnimationFrame(animate);
-    }, [smiling, animating]);
+    }, [animating]);
+
+    const toggleSmile = useCallback(() => {
+        triggerAnimation(smiling ? 0 : 1);
+    }, [smiling, triggerAnimation]);
+
+    // Watch for external emotion triggers
+    useEffect(() => {
+        if (emotionTrigger && emotionTrigger.t) {
+            // "happy" -> 1 (smile), anything else -> 0 (neutral)
+            const target = emotionTrigger.emotion === "happy" ? 1 : 0;
+            triggerAnimation(target);
+
+            // automatically revert to neutral after 2.5s
+            const timer = setTimeout(() => {
+                triggerAnimation(0);
+            }, 2500);
+
+            return () => clearTimeout(timer);
+        }
+    }, [emotionTrigger, triggerAnimation]);
 
     useEffect(() => () => {
         if (animRef.current) cancelAnimationFrame(animRef.current);
@@ -558,7 +577,7 @@ export default function PixelGirl({ scale = 0.25 }) {
                 />
             </div>
 
-            <button
+            {/* <button
                 onClick={toggleSmile}
                 disabled={animating}
                 style={{
@@ -578,7 +597,7 @@ export default function PixelGirl({ scale = 0.25 }) {
                 }}
             >
                 {animating ? "· · ·" : smiling ? "↩ neutral" : "✨ make her smile"}
-            </button>
+            </button> */}
         </div>
     );
 }

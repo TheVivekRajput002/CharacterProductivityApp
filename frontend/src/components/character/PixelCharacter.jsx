@@ -303,6 +303,7 @@ const EMOTIONS = [
 export default function PixelCharacter({
   emotion: externalEmotion,
   showControls = true,
+  emotionTrigger = null,
 }) {
   const [emotion, setEmotion] = useState(externalEmotion || "idle");
   const [tick, setTick]       = useState(0);
@@ -314,6 +315,20 @@ export default function PixelCharacter({
   useEffect(() => {
     if (externalEmotion) setEmotion(externalEmotion);
   }, [externalEmotion]);
+
+  // watch for animation triggers
+  useEffect(() => {
+    if (emotionTrigger && emotionTrigger.t) {
+      setEmotion(emotionTrigger.emotion);
+
+      // automatically revert to idle after 2.5s
+      const timer = setTimeout(() => {
+        setEmotion("idle");
+      }, 2500);
+
+      return () => clearTimeout(timer);
+    }
+  }, [emotionTrigger]);
 
   useEffect(() => {
     let frame = 0;

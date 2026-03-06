@@ -6,7 +6,6 @@ import "./Sidebar.css";
 /* ─── Menu Data ─── */
 const mainMenu = [
     { icon: "🏠", label: "Home", path: "/" },
-    { icon: "🔍", label: "Search", path: "/search" },
     { icon: "✅", label: "Tasks", path: "/tasks" },
     { icon: "📅", label: "Calendar", path: "/calendar" },
     { icon: "⚡", label: "Habits", path: "/habits" },

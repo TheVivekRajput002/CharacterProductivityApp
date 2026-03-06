@@ -1,6 +1,10 @@
 const mongoose = require("mongoose")
 
 const taskSchema = new mongoose.Schema({
+    user_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+    },
     title: {
         type: String,
         required: true
@@ -9,11 +13,6 @@ const taskSchema = new mongoose.Schema({
         type: String,
         enum: ["habit", "task", "goal"],
         default: "task"
-    },
-    status: {
-        type: String,
-        enum: ["completed", "archived", "in_progress"],
-        default: "in_progress"
     },
     tag: {
         type: String,
@@ -32,12 +31,17 @@ const taskSchema = new mongoose.Schema({
     target: {
         type: Number,
     },
-    frequency: {
-        type: Number,
-    },
     due_date: {
         type: Number,
         required: true,
+    },
+    frequency: {
+        type: Number,
+    },
+    status: {
+        type: String,
+        enum: ["completed", "archived", "in_progress"],
+        default: "in_progress"
     },
 
 

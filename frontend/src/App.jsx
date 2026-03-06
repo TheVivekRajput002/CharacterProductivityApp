@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import Auth from "./pages/auth/Auth"
 import Home from "./pages/Home"
+import Tasks from "./pages/Tasks"
 import Sidebar from "./components/Sidebar"
 import './App.css'
 import ProtectedRoute from './components/auth/ProtectedRoute'
@@ -23,6 +24,11 @@ function App() {
         <Route path="/home" element={
           <ProtectedRoute>
             <Home />
+          </ProtectedRoute>
+        } />
+        <Route path="/tasks" element={
+          <ProtectedRoute>
+            <Tasks />
           </ProtectedRoute>
         } />
       </Routes>

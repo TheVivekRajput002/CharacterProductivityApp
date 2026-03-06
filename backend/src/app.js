@@ -1,5 +1,6 @@
 const express = require("express");
 const authRoutes = require("./routes/auth.router")
+const taskRoutes = require("./routes/task.router")
 const cors = require("cors")
 const cookieParser = require("cookie-parser")
 
@@ -19,5 +20,6 @@ app.get("", (req, res) => {
 })
 
 app.use("/api/auth", authRoutes)
+app.use("/api/task", taskRoutes)
 
 module.exports = app;
