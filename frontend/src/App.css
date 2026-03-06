@@ -52,4 +52,21 @@
   --color-shadow-sm: light-dark(hsl(222 47% 11% / 0.05),
       hsl(222 47% 11% / 0.25));
 
+  /* ── Status badges ── */
+  --color-success: light-dark(hsl(142 71% 45%), hsl(142 69% 58%));
+  --color-success-bg: light-dark(hsl(142 71% 45% / 0.15), hsl(142 69% 58% / 0.15));
+  --color-warning: light-dark(hsl(45 93% 47%), hsl(45 93% 58%));
+  --color-warning-bg: light-dark(hsl(45 93% 47% / 0.15), hsl(45 93% 58% / 0.15));
+  --color-muted: light-dark(hsl(215 16% 57%), hsl(215 20% 55%));
+  --color-muted-bg: light-dark(hsl(215 16% 57% / 0.12), hsl(215 20% 55% / 0.12));
+
+  /* Row separator */
+  --color-separator: light-dark(hsl(214 32% 91% / 0.5), hsl(217 19% 27% / 0.6));
+
+  /* ── TaskTable extras ── */
+  --color-danger: light-dark(hsl(0 72% 51%), hsl(0 72% 63%));
+  --color-danger-bg: light-dark(hsl(0 72% 51% / 0.12), hsl(0 72% 63% / 0.12));
+  --color-row: light-dark(hsl(220 20% 96% / 0.55), hsl(220 20% 14% / 0.45));
+  --color-accent: light-dark(hsl(262 83% 58%), hsl(262 83% 68%));
+  --color-accent-bg: light-dark(hsl(262 83% 58% / 0.12), hsl(262 83% 68% / 0.12));
 }
