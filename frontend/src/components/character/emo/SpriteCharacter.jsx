@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-import "./emo/happy/spritesheet.css";
-import "./emo/angry/spritesheet.css";
+import "./happy/spritesheet.css";
+import "./angry/spritesheet.css";
 
 /**
  * SpriteCharacter

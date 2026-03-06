@@ -1,6 +1,7 @@
 import { motion } from "motion/react";
 import PixelCharacter from "../character/PixelCharacter";
-import SpriteCharacter from "../character/SpriteCharacter";
+import SpriteCharacter from "../character/emo/SpriteCharacter";
+import PixelGirl from "../character/pink_girl_character/PixelCharacter";
 
 /* ── helpers ──────────────────────────────────────── */
 const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -159,8 +160,9 @@ export default function PhoneMockup({ userName = "Chester" }) {
                         <div className="absolute inset-0 flex items-end justify-center z-10"
                             style={{ pointerEvents: "none", paddingBottom: "8px" }}>
                             <div style={{ pointerEvents: "auto", transform: "scale(1)" }}>
-                                {/* <PixelCharacter showControls={false} /> */}
+                                {/* <PixelCharacter showControls={true} /> */}
                                 <SpriteCharacter showTrigger={true} displaySize={80} />
+                                {/* <PixelGirl /> */}
                             </div>
                         </div>
                     </div>

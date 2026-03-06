@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./Sidebar.css";
@@ -28,6 +28,31 @@ const favoriteItems = [
 const Sidebar = ({ isOpen, setIsOpen }) => {
     const location = useLocation();
     const navigate = useNavigate();
+
+    // Theme state
+    const [isDark, setIsDark] = useState(() => {
+        const savedTheme = localStorage.getItem("theme");
+        if (savedTheme) return savedTheme === "dark";
+        // Default to dark mode or system preference
+        if (typeof window !== 'undefined' && window.matchMedia) {
+            return window.matchMedia("(prefers-color-scheme: dark)").matches;
+        }
+        return false;
+    });
+
+    useEffect(() => {
+        if (isDark) {
+            document.documentElement.style.colorScheme = 'dark';
+            document.documentElement.classList.add('dark');
+            localStorage.setItem("theme", "dark");
+        } else {
+            document.documentElement.style.colorScheme = 'light';
+            document.documentElement.classList.remove('dark');
+            localStorage.setItem("theme", "light");
+        }
+    }, [isDark]);
+
+    const toggleTheme = () => setIsDark(prev => !prev);
 
     // Don't render on auth pages
     if (location.pathname === "/auth") return null;
@@ -118,6 +143,14 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
                                     </li>
                                 ))}
                             </ul>
+
+                            {/* Bottom Actions */}
+                            <div className="sidebar-bottom">
+                                <button className="theme-toggle-btn" onClick={toggleTheme} aria-label="Toggle Theme">
+                                    <span className="sidebar-menu-item-icon">{isDark ? "🌙" : "☀️"}</span>
+                                    {isDark ? "Dark Mode" : "Light Mode"}
+                                </button>
+                            </div>
                         </motion.nav>
                     </>
                 )}
