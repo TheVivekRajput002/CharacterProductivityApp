@@ -2,8 +2,9 @@ import { motion } from "motion/react";
 import PixelCharacter from "../character/PixelCharacter";
 import SpriteCharacter from "../character/emo/SpriteCharacter";
 import PixelGirl from "../character/pink_girl_character/PixelCharacter";
+import AnimeCharacter from "../character/anime_girl/AnimeCharacter";
 import axios from "axios"
-import {useEffect} from 'react'
+import { useEffect } from 'react'
 import { useState } from "react";
 
 /* ── helpers ──────────────────────────────────────── */
@@ -33,8 +34,8 @@ function StatBar({ label, percentage, delay = 0 }) {
                 border: "1px solid var(--color-border)",
             }}
         >
-            <span className="text-[10px] font-medium mb-3 tracking-wide" 
-                  style={{ color: "var(--color-text-secondary)" }}>
+            <span className="text-[10px] font-medium mb-3 tracking-wide"
+                style={{ color: "var(--color-text-secondary)" }}>
                 {label}
             </span>
 
@@ -47,17 +48,17 @@ function StatBar({ label, percentage, delay = 0 }) {
                     className="absolute -top-[18px] -translate-x-1/2 flex flex-col items-center drop-shadow-sm z-10"
                 >
                     <div className="px-1 py-[2px] rounded-[3px] text-[8px] font-bold leading-none"
-                         style={{ backgroundColor: "var(--color-text-primary)", color: "var(--color-bg)" }}>
+                        style={{ backgroundColor: "var(--color-text-primary)", color: "var(--color-bg)" }}>
                         {percentage}%
                     </div>
-                    <div className="w-0 h-0 border-l-[3px] border-r-[3px] border-t-[3px] border-l-transparent border-r-transparent" 
-                         style={{ borderTopColor: "var(--color-text-primary)" }} />
+                    <div className="w-0 h-0 border-l-[3px] border-r-[3px] border-t-[3px] border-l-transparent border-r-transparent"
+                        style={{ borderTopColor: "var(--color-text-primary)" }} />
                 </motion.div>
 
                 {/* Track */}
                 <div className="h-[4px] w-full rounded-full relative" style={{ backgroundColor: "var(--color-lightgray)" }}>
                     {/* Fill */}
-                    <motion.div 
+                    <motion.div
                         initial={{ width: 0 }}
                         animate={{ width: `${percentage}%` }}
                         transition={{ duration: 1.2, ease: "easeOut", delay: delay }}
@@ -131,11 +132,11 @@ export default function PhoneMockup({ userName = "Chester", animTrigger }) {
                     <div className="relative z-10 flex items-center justify-between px-5 pt-8 pb-2">
                         {/* Level Badge (Top Left) */}
                         <div className="flex items-center justify-center px-3 py-1 rounded-[14px] shadow-sm"
-                             style={{ backgroundColor: "var(--color-surface)", border: "1px solid var(--color-border)" }}>
+                            style={{ backgroundColor: "var(--color-surface)", border: "1px solid var(--color-border)" }}>
                             <span className="text-[10px] font-bold uppercase mr-1" style={{ color: "var(--color-text-secondary)" }}>Lvl</span>
                             <span className="text-xs font-bold" style={{ color: "var(--color-text-primary)" }}>{character.level || 1}</span>
                         </div>
-                        
+
                         <div className="flex-1 flex justify-center">
                             <span className="text-[10px] font-medium tracking-wide"
                                 style={{ color: "var(--color-text-secondary)" }}>
@@ -145,7 +146,7 @@ export default function PhoneMockup({ userName = "Chester", animTrigger }) {
 
                         {/* XP Badge (Top Right) */}
                         <div className="flex items-center justify-center px-3 py-1 rounded-[14px] shadow-sm"
-                             style={{ backgroundColor: "var(--color-surface)", border: "1px solid var(--color-border)" }}>
+                            style={{ backgroundColor: "var(--color-surface)", border: "1px solid var(--color-border)" }}>
                             <span className="text-xs font-bold mr-1" style={{ color: "var(--color-text-primary)" }}>{character.xp || 0}</span>
                             <span className="text-[10px] font-bold uppercase" style={{ color: "var(--color-text-secondary)" }}>XP</span>
                         </div>
@@ -171,13 +172,14 @@ export default function PhoneMockup({ userName = "Chester", animTrigger }) {
                             style={{ pointerEvents: "none", paddingBottom: "8px" }}>
                             <div style={{ pointerEvents: "auto", transform: "scale(1)" }}>
                                 <PixelCharacter showControls={false} emotionTrigger={animTrigger} />
+                                {/* <AnimeCharacter emotionTrigger={animTrigger} /> */}
                                 {/* <SpriteCharacter showTrigger={false} displaySize={180} emotionTrigger={animTrigger} /> */}
                                 {/* <PixelGirl emotionTrigger={animTrigger} /> */}
                             </div>
                         </div>
                     </div>
 
-                
+
 
                     {/* stats list */}
                     <div className="flex-1 flex flex-col justify-end px-4 pb-6 pt-2 gap-1.5">

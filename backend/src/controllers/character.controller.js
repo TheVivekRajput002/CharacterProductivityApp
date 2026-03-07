@@ -18,9 +18,9 @@ async function createCharacter(req, res, user_id) {
 async function getCharacterStats(req, res) {
     const { _id: userId } = req.user
 
-    try {        
-        const character = await characterModel.findOne({user_id: userId})
-    
+    try {
+        const character = await characterModel.findOne({ user_id: userId })
+
         res.status(200).json({
             message: "here are character details",
             character
@@ -31,13 +31,22 @@ async function getCharacterStats(req, res) {
             message: "there is  some error brother",
             error
         })
-        
+
     }
+}
+
+async function increaseStats(req, res) {
+    const { _id: userId } = req.user
+    const { tag } = req.body
+
+    const character = await characterModel.findOneAndUpdate({ user_id: userId}, { $inc: { [`stats.${tag}`]: 1 } })
+
 
 
 }
 
 module.exports = {
     getCharacterStats,
-    createCharacter
+    createCharacter,
+    increaseStats
 }
