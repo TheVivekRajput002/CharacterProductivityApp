@@ -1,6 +1,7 @@
 const userModel = require("../models/user.model")
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
+const { createCharacter } = require("./character.controller")
 
 async function userRegister(req, res) {
     try {
@@ -23,6 +24,8 @@ async function userRegister(req, res) {
             email,
             password: hashedPassword
         })
+
+        await createCharacter(req, res, user._id)
 
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET)
         res.cookie("token", token)
