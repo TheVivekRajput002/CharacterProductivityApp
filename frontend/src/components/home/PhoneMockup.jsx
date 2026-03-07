@@ -19,28 +19,7 @@ function formattedDate() {
 }
 
 
-/* ── palm-tree top-bar icon ──────────────────────── */
-const PalmIcon = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-        strokeWidth={1.4} stroke="currentColor" className="w-5 h-5">
-        <path strokeLinecap="round" strokeLinejoin="round"
-            d="M12 21v-8m0 0c-2.5-1-5-3.5-5-7 2.5 0 4.5 1.5 5 4m0 3c2.5-1 5-3.5 5-7-2.5 0-4.5 1.5-5 4m0-4c-1-3-1-5.5 0-7 1.5 1 2.5 3.5 2 6m-2-6c-1.5 1-2.5 3.5-2 6" />
-    </svg>
-);
 
-/* ── avatar badge ────────────────────────────────── */
-const AvatarBadge = () => (
-    <div className="w-8 h-8 rounded-full overflow-hidden ring-2 ring-white/60 shadow-sm"
-        style={{
-            background:
-                "conic-gradient(from 0deg, #e879a8, #f59e42, #facc15, #4ade80, #38bdf8, #a78bfa, #e879a8)",
-        }}
-    >
-        <div className="w-full h-full flex items-center justify-center text-[10px] font-bold text-white/90 backdrop-blur-sm bg-white/10">
-            U
-        </div>
-    </div>
-);
 
 /* ── stat bar ────────────────────────────────────── */
 function StatBar({ label, percentage, delay = 0 }) {
@@ -150,12 +129,26 @@ export default function PhoneMockup({ userName = "Chester", animTrigger }) {
 
                     {/* top bar */}
                     <div className="relative z-10 flex items-center justify-between px-5 pt-8 pb-2">
-                        <PalmIcon />
-                        <span className="text-xs font-medium tracking-wide"
-                            style={{ color: "var(--color-text-secondary)" }}>
-                            {formattedDate()}
-                        </span>
-                        <AvatarBadge />
+                        {/* Level Badge (Top Left) */}
+                        <div className="flex items-center justify-center px-3 py-1 rounded-[14px] shadow-sm"
+                             style={{ backgroundColor: "var(--color-surface)", border: "1px solid var(--color-border)" }}>
+                            <span className="text-[10px] font-bold uppercase mr-1" style={{ color: "var(--color-text-secondary)" }}>Lvl</span>
+                            <span className="text-xs font-bold" style={{ color: "var(--color-text-primary)" }}>{character.level || 1}</span>
+                        </div>
+                        
+                        <div className="flex-1 flex justify-center">
+                            <span className="text-[10px] font-medium tracking-wide"
+                                style={{ color: "var(--color-text-secondary)" }}>
+                                {formattedDate()}
+                            </span>
+                        </div>
+
+                        {/* XP Badge (Top Right) */}
+                        <div className="flex items-center justify-center px-3 py-1 rounded-[14px] shadow-sm"
+                             style={{ backgroundColor: "var(--color-surface)", border: "1px solid var(--color-border)" }}>
+                            <span className="text-xs font-bold mr-1" style={{ color: "var(--color-text-primary)" }}>{character.xp || 0}</span>
+                            <span className="text-[10px] font-bold uppercase" style={{ color: "var(--color-text-secondary)" }}>XP</span>
+                        </div>
                     </div>
 
                     {/* hero image */}
