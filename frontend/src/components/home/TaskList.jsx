@@ -3,7 +3,8 @@ import { motion, AnimatePresence } from "motion/react";
 import axios from "axios"
 
 /* ── Task List Card ───────────────────────────────────── */
-export default function TaskList({ hideHeader = false, onTaskToggle }) {
+export default function TaskList({ hideHeader = false, onTaskToggle, setCharacter }) {
+
 
   const [tasks, setTasks] = useState([]);
 
@@ -41,12 +42,36 @@ export default function TaskList({ hideHeader = false, onTaskToggle }) {
     }
 
     try {
-      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/task/complete`,{
+      if (task.tag) {
+        setCharacter((prev) => ({
+          ...prev,
+          stats: {
+            ...prev.stats,
+            [task.tag.toLowerCase()]: (prev.stats?.[task.tag.toLowerCase()] || 0) + 1
+          }
+        }));
+      }
+    } catch (error) {
+      console.error("Error updating stats:", error);
+    }
+
+    try {
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/character/stats/increase`, task, {
+        withCredentials: true
+      })
+
+
+    } catch (error) {
+      console.log("errorrr", error)
+    }
+
+    try {
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/task/complete`, {
         taskId: task._id
-      },{
+      }, {
         withCredentials: true
       });
-      
+
       if (response.status !== 200) {
         // Revert if not successful
         throw new Error("Failed to update on server");
@@ -66,70 +91,70 @@ export default function TaskList({ hideHeader = false, onTaskToggle }) {
 
 
 
-return (
-  <motion.div
-    initial={{ opacity: 0, y: 24 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.5, ease: "easeOut" }}
-    className="w-full rounded-xl p-4"
-    style={{
-      backgroundColor: "var(--color-surface)",
-      boxShadow: "0 8px 32px var(--color-shadow), 0 1px 4px var(--color-shadow-sm)",
-      border: "1px solid var(--color-border)",
-    }}
-  >
-    {/* Header */}
-    {!hideHeader && (
-      <h2
-        className="mb-3 text-sm font-bold tracking-tight"
-        style={{ color: "var(--color-text-primary)" }}
-      >
-        Task List
-      </h2>
-    )}
-
-    {/* Table */}
-    <div className="overflow-x-auto">
-      <table className="w-full text-left">
-        <thead>
-          <tr style={{ borderBottom: "1px solid var(--color-border)" }}>
-            {["No", "Task", "Category", "Status", "Due Date"].map((h) => (
-              <th
-                key={h}
-                className="px-4 py-2 text-[10px] font-semibold uppercase tracking-wider"
-                style={{ color: "var(--color-text-secondary)" }}
-              >
-                {h}
-              </th>
-            ))}
-          </tr>
-        </thead>
-
-        <tbody>
-          {tasks.map((task, i) => (
-            <TaskRow
-              key={task._id}
-              task={task}
-              index={i}
-              onToggle={handleToggle}
-            />
-          ))}
-        </tbody>
-      </table>
-    </div>
-
-    {/* Footer summary */}
-    <div
-      className="mt-3 flex items-center justify-between px-4 text-[11px]"
-      style={{ color: "var(--color-text-secondary)" }}
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 24 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+      className="w-full rounded-xl p-4"
+      style={{
+        backgroundColor: "var(--color-surface)",
+        boxShadow: "0 8px 32px var(--color-shadow), 0 1px 4px var(--color-shadow-sm)",
+        border: "1px solid var(--color-border)",
+      }}
     >
-      <span>
-        {tasks.filter((t) => t.status === "Completed").length} of {tasks.length} completed
-      </span>
-      <span className="opacity-60">Click the checkbox to toggle status</span>
-    </div>
-  </motion.div>
-);
+      {/* Header */}
+      {!hideHeader && (
+        <h2
+          className="mb-3 text-sm font-bold tracking-tight"
+          style={{ color: "var(--color-text-primary)" }}
+        >
+          Task List
+        </h2>
+      )}
+
+      {/* Table */}
+      <div className="overflow-x-auto">
+        <table className="w-full text-left">
+          <thead>
+            <tr style={{ borderBottom: "1px solid var(--color-border)" }}>
+              {["No", "Task", "Category", "Status", "Due Date"].map((h) => (
+                <th
+                  key={h}
+                  className="px-4 py-2 text-[10px] font-semibold uppercase tracking-wider"
+                  style={{ color: "var(--color-text-secondary)" }}
+                >
+                  {h}
+                </th>
+              ))}
+            </tr>
+          </thead>
+
+          <tbody>
+            {tasks.map((task, i) => (
+              <TaskRow
+                key={task._id}
+                task={task}
+                index={i}
+                onToggle={handleToggle}
+              />
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      {/* Footer summary */}
+      <div
+        className="mt-3 flex items-center justify-between px-4 text-[11px]"
+        style={{ color: "var(--color-text-secondary)" }}
+      >
+        <span>
+          {tasks.filter((t) => t.status === "Completed").length} of {tasks.length} completed
+        </span>
+        <span className="opacity-60">Click the checkbox to toggle status</span>
+      </div>
+    </motion.div>
+  );
 }
 
 

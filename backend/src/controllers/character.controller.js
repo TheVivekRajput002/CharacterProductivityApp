@@ -39,9 +39,22 @@ async function increaseStats(req, res) {
     const { _id: userId } = req.user
     const { tag } = req.body
 
-    const character = await characterModel.findOneAndUpdate({ user_id: userId}, { $inc: { [`stats.${tag}`]: 1 } })
+    try {
 
+        const character = await characterModel.findOneAndUpdate({ user_id: userId }, { $inc: { [`stats.${tag}`]: 1 } })
 
+        res.status(200).json({
+            message: "stats updated",
+            stats: character.stats,
+        })
+        
+    } catch (error) {
+        res.status(400).json({
+            message: "error in updating the stats",
+            error
+        })
+
+    }
 
 }
 

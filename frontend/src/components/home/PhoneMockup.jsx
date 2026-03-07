@@ -25,6 +25,8 @@ function formattedDate() {
 /* ── stat bar ────────────────────────────────────── */
 function StatBar({ label, percentage, delay = 0 }) {
 
+
+
     return (
         <div
             className="flex flex-col w-full rounded-xl py-2 px-3"
@@ -72,17 +74,7 @@ function StatBar({ label, percentage, delay = 0 }) {
 }
 
 /* ── main component ──────────────────────────────── */
-export default function PhoneMockup({ userName = "Chester", animTrigger }) {
-    const [character, setCharacter] = useState({
-        stats: {
-            health: 20,
-            intelligence: 20,
-            creativity: 20,
-            discipline: 20,
-        },
-        level: 1,
-        xp: 0,
-    });
+export default function PhoneMockup({ userName = "Chester", animTrigger, setCharacter, character }) {
 
     useEffect(() => {
         const fetchCharacter = async () => {

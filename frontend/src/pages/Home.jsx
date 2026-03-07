@@ -7,6 +7,17 @@ import TaskTable from "../components/home/TaskTable";
 export default function Home() {
   const [animTrigger, setAnimTrigger] = useState(null);
 
+      const [character, setCharacter] = useState({
+          stats: {
+              health: 20,
+              intelligence: 20,
+              creativity: 20,
+              discipline: 20,
+          },
+          level: 1,
+          xp: 0,
+      });
+
   const handleHabitToggle = (isFilled) => {
     setAnimTrigger({ emotion: isFilled ? "happy" : "angry", t: Date.now() });
   };
@@ -18,7 +29,7 @@ export default function Home() {
     >
       {/* ── Left: Phone mockup (fixed width, centered) ── */}
       <aside className="hidden lg:flex w-[280px] flex-shrink-0 items-center justify-center py-4 px-4">
-        <PhoneMockup userName="Chester" animTrigger={animTrigger} />
+        <PhoneMockup userName="Chester" animTrigger={animTrigger} character={character} setCharacter={setCharacter}/>
       </aside>
 
       {/* ── Right: Dashboard grid ── */}
@@ -30,7 +41,7 @@ export default function Home() {
           </div>
           <div className="w-2/3">
             <div className="grid grid-cols-1 xl:grid-cols-1 gap-5">
-              <TaskList onTaskToggle={handleHabitToggle} />
+              <TaskList onTaskToggle={handleHabitToggle} setCharacter={setCharacter}/>
               <TaskTable />
             </div>
           </div>
