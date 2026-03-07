@@ -2,6 +2,9 @@ import { motion } from "motion/react";
 import PixelCharacter from "../character/PixelCharacter";
 import SpriteCharacter from "../character/emo/SpriteCharacter";
 import PixelGirl from "../character/pink_girl_character/PixelCharacter";
+import axios from "axios"
+import {useEffect} from 'react'
+import { useState } from "react";
 
 /* ── helpers ──────────────────────────────────────── */
 const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -14,7 +17,6 @@ function formattedDate() {
     const d = new Date();
     return `${dayNames[d.getDay()]}, ${monthNames[d.getMonth()]} ${d.getDate()}`;
 }
-
 
 
 /* ── palm-tree top-bar icon ──────────────────────── */
@@ -42,6 +44,7 @@ const AvatarBadge = () => (
 
 /* ── stat bar ────────────────────────────────────── */
 function StatBar({ label, percentage, delay = 0 }) {
+
     return (
         <div
             className="flex flex-col w-full rounded-xl py-2 px-3"
@@ -90,6 +93,33 @@ function StatBar({ label, percentage, delay = 0 }) {
 
 /* ── main component ──────────────────────────────── */
 export default function PhoneMockup({ userName = "Chester", animTrigger }) {
+    const [character, setCharacter] = useState({
+        stats: {
+            health: 20,
+            intelligence: 20,
+            creativity: 20,
+            discipline: 20,
+        },
+        level: 1,
+        xp: 0,
+    });
+
+    useEffect(() => {
+        const fetchCharacter = async () => {
+            try {
+                const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/character`, {
+                    withCredentials: true
+                });
+                if (response.data?.character) {
+                    setCharacter(response.data.character);
+                }
+            } catch (error) {
+                console.error("Failed to fetch character:", error);
+            }
+        };
+        fetchCharacter();
+    }, []);
+
     return (
         <motion.div
             initial={{ opacity: 0, scale: 0.92 }}
@@ -158,10 +188,10 @@ export default function PhoneMockup({ userName = "Chester", animTrigger }) {
 
                     {/* stats list */}
                     <div className="flex-1 flex flex-col justify-end px-4 pb-6 pt-2 gap-1.5">
-                        <StatBar label="Health" percentage={80} delay={0.05} />
-                        <StatBar label="Intelligence" percentage={65} delay={0.15} />
-                        <StatBar label="Creativity" percentage={90} delay={0.25} />
-                        <StatBar label="Discipline" percentage={50} delay={0.35} />
+                        <StatBar label="Health" percentage={character.stats?.health || 0} delay={0.05} />
+                        <StatBar label="Intelligence" percentage={character.stats?.intelligence || 0} delay={0.15} />
+                        <StatBar label="Creativity" percentage={character.stats?.creativity || 0} delay={0.25} />
+                        <StatBar label="Discipline" percentage={character.stats?.discipline || 0} delay={0.35} />
                     </div>
                 </div>
             </div>
