@@ -147,9 +147,9 @@ export default function PhoneMockup({ userName = "Chester", animTrigger }) {
                         <div className="absolute inset-0 flex items-end justify-center z-10"
                             style={{ pointerEvents: "none", paddingBottom: "8px" }}>
                             <div style={{ pointerEvents: "auto", transform: "scale(1)" }}>
-                                {/* <PixelCharacter showControls={false} emotionTrigger={animTrigger} /> */}
-                                {/* <SpriteCharacter showTrigger={false} displaySize={80} emotionTrigger={animTrigger} /> */}
-                                <PixelGirl emotionTrigger={animTrigger} />
+                                <PixelCharacter showControls={false} emotionTrigger={animTrigger} />
+                                {/* <SpriteCharacter showTrigger={false} displaySize={180} emotionTrigger={animTrigger} /> */}
+                                {/* <PixelGirl emotionTrigger={animTrigger} /> */}
                             </div>
                         </div>
                     </div>

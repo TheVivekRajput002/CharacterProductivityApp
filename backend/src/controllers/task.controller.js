@@ -21,7 +21,7 @@ async function createTask(req, res) {
         })
 
     } catch (error) {
-        res.status(200).json({
+        res.status(400).json({
             message: "brother there is some error",
             error
         })
@@ -29,6 +29,55 @@ async function createTask(req, res) {
 
 }
 
+async function getTasks(req,res){
+    const userId = req.user._id
+
+    try {
+        
+        const tasks = await taskModel.find({user_id: userId})
+    
+        res.status(200).json({
+            message: "here are all the tasks",
+            tasks
+        })
+
+    } catch (error) {
+        res.status(400).json({
+            message: "brother there is some error",
+            error
+        })
+    }
+
+}
+
+async function completeTask(req,res){
+    const { taskId } = req.body
+
+    try {
+        
+        const task = await taskModel.findByIdAndUpdate(taskId, {
+            status: "completed",
+            completed_at: new Date()
+        })
+    
+        res.status(200).json({
+            message: "task completed successfully",
+            updatedData: {
+                status: task.status,
+                completed_at: task.completed_at
+            }           
+        })
+    } catch (error) {
+        res.status(400).json({
+            message: "brpther here is some error",
+            error
+        })
+    }
+
+}
+
 module.exports = {
-    createTask
+    createTask,
+    getTasks,
+    completeTask
 }

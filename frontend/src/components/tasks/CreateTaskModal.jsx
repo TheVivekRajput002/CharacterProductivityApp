@@ -1,7 +1,41 @@
 import { motion, AnimatePresence } from "motion/react";
 import { X } from "lucide-react";
+import axios from "axios"
+import { useState } from "react";
 
 export default function CreateTaskModal({ isOpen, onClose }) {
+
+  const [task, setTask] = useState({
+    title: "",
+    tag: "health",
+    priority: 3,
+    due_date: "",
+  })
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/task/create`, task, {
+        withCredentials: true
+      });
+
+      console.log(response);
+
+      setTask({
+        title: "",
+        tag: "health",
+        priority: 3,
+        due_date: "",
+      });
+
+      onClose();
+
+    } catch (error) {
+      console.error("error in handlesubmit", error);
+    }
+  };
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -44,7 +78,7 @@ export default function CreateTaskModal({ isOpen, onClose }) {
               </div>
 
               {/* Form */}
-              <form className="flex flex-col gap-4" onSubmit={(e) => { e.preventDefault(); onClose(); handleSubmit()}}>
+              <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
                 {/* Title */}
                 <div>
                   <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wider" style={{ color: "var(--color-text-secondary)" }}>
@@ -52,6 +86,8 @@ export default function CreateTaskModal({ isOpen, onClose }) {
                   </label>
                   <input
                     type="text"
+                    value={task.title}
+                    onChange={(e) => { setTask({ ...task, title: e.target.value }) }}
                     required
                     placeholder="E.g., Design homepage wireframes"
                     className="w-full rounded-lg px-4 py-2.5 text-sm outline-none transition-all placeholder:text-gray-500"
@@ -76,6 +112,9 @@ export default function CreateTaskModal({ isOpen, onClose }) {
                         color: "var(--color-text-primary)",
                         border: "1px solid var(--color-border)",
                       }}
+                      value={task.tag}
+                      onChange={(e) => setTask({ ...task, tag: e.target.value })}
+
                     >
                       <option value="health">Health</option>
                       <option value="intelligence">Intelligence</option>
@@ -83,7 +122,7 @@ export default function CreateTaskModal({ isOpen, onClose }) {
                       <option value="creativity">Creativity</option>
                     </select>
                   </div>
-                  
+
                   <div className="flex-1">
                     <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wider" style={{ color: "var(--color-text-secondary)" }}>
                       Priority
@@ -95,10 +134,13 @@ export default function CreateTaskModal({ isOpen, onClose }) {
                         color: "var(--color-text-primary)",
                         border: "1px solid var(--color-border)",
                       }}
+                      value={task.priority}
+                      onChange={(e) => setTask({ ...task, priority: Number(e.target.value) })}
+
                     >
-                      <option value="low">Low</option>
-                      <option value="medium">Medium</option>
-                      <option value="high">High</option>
+                      <option value={3}>Low</option>
+                      <option value={2}>Medium</option>
+                      <option value={1}>High</option>
                     </select>
                   </div>
                 </div>
@@ -117,6 +159,8 @@ export default function CreateTaskModal({ isOpen, onClose }) {
                       color: "var(--color-text-primary)",
                       border: "1px solid var(--color-border)",
                     }}
+                    value={task.due_date}
+                    onChange={(e) => setTask({ ...task, due_date: e.target.value })}
                   />
                 </div>
 

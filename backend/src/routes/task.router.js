@@ -5,5 +5,7 @@ const taskController = require("../controllers/task.controller")
 const router = express.Router();
 
 router.post("/create", authMiddleware.authUserMiddleware, taskController.createTask )
+router.get("/", authMiddleware.authUserMiddleware, taskController.getTasks)
+router.post("/complete", authMiddleware.authUserMiddleware, taskController.completeTask)
 
 module.exports = router;

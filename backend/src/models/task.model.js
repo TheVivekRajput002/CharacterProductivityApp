@@ -32,17 +32,17 @@ const taskSchema = new mongoose.Schema({
         type: Number,
     },
     due_date: {
-        type: Number,
+        type: Date,
         required: true,
-    },
-    frequency: {
-        type: Number,
     },
     status: {
         type: String,
         enum: ["completed", "archived", "in_progress"],
         default: "in_progress"
     },
+    completed_at: {
+  type: Date
+}
 
 
 },{ timestamps: true}

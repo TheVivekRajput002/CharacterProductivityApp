@@ -30,7 +30,7 @@ export default function Home() {
           </div>
           <div className="w-2/3">
             <div className="grid grid-cols-1 xl:grid-cols-1 gap-5">
-              <TaskList />
+              <TaskList onTaskToggle={handleHabitToggle} />
               <TaskTable />
             </div>
           </div>
